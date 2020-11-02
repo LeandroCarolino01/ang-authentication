@@ -1,4 +1,5 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 const User = require('../models/user')
 
@@ -29,7 +30,9 @@ router.post('/register', (req, res) => {
         if(error) {
             console.log(error)
         } else {
-            res.status(200).send(registeredUser)
+            let payload = { subject: registeredUser._id }
+            let token = jwt.sign(payload, 'secretKey')
+            res.status(200).send({token})
         }
     })
 })
@@ -47,7 +50,9 @@ router.post('/login', (req, res) => {
             if( user.password !== userData.password){
                 res.status(401).send('Invalid password')
             } else {
-                res.status(200).send(user)
+                let payload = { subject: user._id }
+                let token = jwt.sign(payload, 'secretKey')
+                res.status(200).send({token})
             }
         }
     })
@@ -58,32 +63,32 @@ router.get('/events', (req, res) => {
         {
             "_id": "1",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "2",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "3",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "4",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "5",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "6",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         }
     ]
     res.json(events)
@@ -94,32 +99,32 @@ router.get('/special', (req, res) => {
         {
             "_id": "1",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "2",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "3",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "4",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "5",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         },
         {
             "_id": "6",
             "name": "auto Expo",
-            "date": "2012-04-23t18:25.43.511z"
+            "date": "2012-04-23T18:25:43.511Z"
         }
     ]
     res.json(events)
